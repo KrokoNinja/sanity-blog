@@ -8,8 +8,9 @@ export interface Post {
   _id: string;
 }
 
-interface Tag {
+export interface Tag {
   name: string;
   slug: { current: string };
   _id: string;
+  postCount?: number;
 }

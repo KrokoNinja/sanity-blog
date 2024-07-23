@@ -6,6 +6,7 @@ import { PortableText } from "next-sanity";
 import { VT323 } from "next/font/google"
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 const dateFont = VT323({ weight: "400", subsets: ["latin"] });
 
@@ -35,9 +36,15 @@ async function getPosts(slug: string) {
     return post;
 }
 
+export const revalidate = 60;
+
 async function page({ params }: Params) {
 
     const post: Post = await getPosts(params.slug);
+
+    if (!post) {
+      return notFound();
+    }
 
     return (
         <div>
